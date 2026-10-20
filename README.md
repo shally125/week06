@@ -1,4 +1,4 @@
-# The phenomenon
+# canteen-picker
 
 <!-- This is the SD5913 assignment 2 template. Everything in this file is yours to
 replace, and the check counts words: comments like this one are not words, so
@@ -11,20 +11,20 @@ https://github.com/sd5913/pfad/blob/2026/reference/files.md first. Ten minutes. 
 
 ![what the picture is](out/plot.png)
 
-## The phenomenon
+## Starting Idea
 
-<!-- What goes up and down, and why you looked at it. -->
+I wanted to help students who cannot decide where to eat on campus.
 
-## The source
+The program offers four fixed canteens:
+Tai Tai Foodtopia, Communal Student Canteen, Gourmet Shop, and The Forest.
+
+The user requests a random suggestion, then accepts it, asks for another suggestion, starts again, or quits.<!-- What goes up and down, and why you looked at it. -->
+
+## User Trial
 
 <!-- A link to the page or endpoint the file came from, and one line on what is in
 the file: how many rows, what a row means, what the units are. -->
 
-## What the picture shows
-
-<!-- Two or three sentences. Including what it hides: every transformation throws
-something away, and naming what yours threw away is the easiest way to sound like
-you know what you did. -->
 
 ## Run it
 

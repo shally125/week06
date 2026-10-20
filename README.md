@@ -3,6 +3,12 @@
 A small browser-based picker that helps students choose a campus canteen.
 No account, installation, or terminal is needed.
 
+## Open the Website
+
+Visit the live site: [Where Should I Eat?](https://shally125.github.io/week06/)
+
+The site is deployed from this repository with GitHub Pages.
+
 ## Available Canteens
 
 - Tai Tai Foodtopia

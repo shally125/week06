@@ -28,9 +28,3 @@ The page can also be hosted as a static site, for example with GitHub Pages.
 ## Screenshot
 
 ![Where Should I Eat? page](assets/screenshot.png)
-
-## Limitations
-
-Suggestions are random. The program does not check opening hours, prices,
-distance, menus, or dietary requirements. The four canteens are fixed in
-`script.js`, and choices are not saved after leaving or refreshing the page.

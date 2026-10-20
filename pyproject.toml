@@ -1,6 +1,0 @@
-[project]
-name = "canteen-picker"
-version = "0.1.0"
-description = "An interactive picker for four campus canteens."
-requires-python = ">=3.10"
-dependencies = []

@@ -1,15 +1,10 @@
 # Process
 
-<!-- Same as assignment 1, same honesty. Which tools you used and for what; one
-thing you kept and why it was good; one thing you rejected and why it was wrong.
-"I did not use any" is fine if it is true.
+The first version was a Python command-line program. It was changed to a static
+web page so students can get a suggestion directly in a browser without
+installing Python, opening a terminal, or entering canteen names. The choice is
+made locally in `script.js`; no login, server, or third-party package is needed.
 
-If a model wrote most of plot.py, which is likely and allowed, the interesting part
-is what you had to correct: did it invent a column name, use pandas where a list
-would do, silently drop the rows it could not parse? -->
-
-## Tools
-
-## Kept
-
-## Rejected
+The interface has three simple states: the starting screen, a suggestion, and
+the confirmation. Choosing "Pick another" filters out the current suggestion
+before selecting again. "Start again" returns to the opening screen.

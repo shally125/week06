@@ -43,6 +43,13 @@ The program respects the system's reduced-motion preference
 and skips the selection animation when that preference is enabled.
 All essential feedback is also shown as text.
 
+Confirming a canteen triggers a brief confetti animation and a
+“Great choice!” message. The confetti ends automatically and can
+be cleared immediately by selecting **Start again**.
+
+The animation is skipped when the system's reduced-motion
+preference is enabled.
+
 ## Screenshot
 
 ![Where Should I Eat? page](assets/screenshot.png)

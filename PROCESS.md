@@ -40,6 +40,19 @@ experience while preserving the original selection loop.
 Sound supports the visual feedback; it is not required to understand
 or use the program.
 
+I also added a brief confetti animation after the user clicks
+**I'll eat here**. The confirmation screen displays “Great choice!”
+and the selected canteen.
+
+I placed this animation at confirmation because it marks the moment
+when the user has made a decision. Requesting another suggestion
+does not trigger confetti.
+
+The animation ends automatically and does not block the controls.
+Starting again removes any remaining confetti immediately.
+Users who request reduced motion receive the confirmation text
+without the animation.
+
 ## Verification After the Change
 
 I tested the picker in a browser: selecting a canteen, choosing another

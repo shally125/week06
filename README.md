@@ -26,6 +26,23 @@ browser.
 
 The page can also be hosted as a static site, for example with GitHub Pages.
 
+## Sound and Motion
+
+A brief selection animation cycles through canteen names before
+revealing the result. The final suggestion still avoids repeating
+the previous canteen when **Pick another** is used.
+
+Sound is off by default. Select **Sound: Off** to enable it.
+A short tone accompanies a suggestion, and a two-note sound
+accompanies confirmation.
+
+The sounds are generated in the browser, so no audio files
+or additional packages are required.
+
+The program respects the system's reduced-motion preference
+and skips the selection animation when that preference is enabled.
+All essential feedback is also shown as text.
+
 ## Screenshot
 
 ![Where Should I Eat? page](assets/screenshot.png)

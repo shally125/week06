@@ -12,48 +12,86 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <main class="picker">
+    <main class="card">
+      <noscript>
+        <p>This picker needs JavaScript. Please enable it and reload the page.</p>
+      </noscript>
       <p class="eyebrow">A LITTLE HELP WITH LUNCH</p>
-      <h1>WHERE SHOULD<br> I EAT?</h1>
+      <h1>WHERE SHOULD I EAT?</h1>
       <p class="intro">Can't decide? Pick a campus canteen.</p>
 
+      <button
+        class="button button-text sound-toggle"
+        id="sound-button"
+        type="button"
+        aria-pressed="false"
+      >
+        Sound: Off
+      </button>
+
       <section id="start-screen" aria-labelledby="spots-heading">
-        <h2 id="spots-heading">OUR FOUR SPOTS</h2>
-        <p class="spots">
-          Tai Tai Foodtopia <span aria-hidden="true">·</span>
-          Communal Student Canteen<br>
-          Gourmet Shop <span aria-hidden="true">·</span> The Forest
-        </p>
-        <button class="button button-primary" id="pick-button" type="button">
+        <div class="spots">
+          <h2 id="spots-heading">OUR FOUR SPOTS</h2>
+          <ul>
+            <li>Tai Tai Foodtopia</li>
+            <li>Communal Student Canteen</li>
+            <li>Gourmet Shop</li>
+            <li>The Forest</li>
+          </ul>
+        </div>
+
+        <button class="button primary" id="pick-button" type="button">
           Pick a canteen
         </button>
       </section>
 
-      <section id="suggestion-screen" aria-live="polite" hidden>
+      <section
+        class="result"
+        id="suggestion-screen"
+        aria-live="polite"
+        hidden
+      >
         <p class="eyebrow">YOUR SUGGESTION</p>
         <h2 class="result-name" id="suggestion-name"></h2>
+        <p id="selection-status" class="selection-status">
+          Accept this suggestion or try another.
+        </p>
         <div class="actions">
-          <button class="button button-primary" id="accept-button" type="button">
+          <button class="button primary" id="accept-button" type="button">
             I'll eat here
           </button>
-          <button class="button button-secondary" id="another-button" type="button">
+          <button class="button secondary" id="another-button" type="button">
             Pick another
           </button>
         </div>
-        <button class="button button-text" id="reset-button" type="button">
+        <button class="button reset" id="reset-button" type="button">
           Start again
         </button>
       </section>
 
-      <section id="confirmed-screen" aria-live="polite" hidden>
+      <section
+        class="result"
+        id="confirmed-screen"
+        aria-live="polite"
+        hidden
+      >
         <h2 class="result-name">
           You're going to <span id="confirmed-name"></span>.
         </h2>
-        <p class="enjoy">Enjoy your meal!</p>
-        <button class="button button-primary" id="confirmed-reset-button" type="button">
+        <p>Enjoy your meal!</p>
+        <button
+          class="button primary"
+          id="confirmed-reset-button"
+          type="button"
+        >
           Start again
         </button>
       </section>
+
+      <p class="note">
+        Suggestions are random. Opening hours, menus, prices, and dietary
+        requirements are not checked.
+      </p>
     </main>
   </body>
 </html>

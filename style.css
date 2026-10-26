@@ -215,3 +215,68 @@ button:focus-visible {
     transition: none !important;
   }
 }
+
+/* Confetti overlay */
+#confetti-container {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.confetti-piece {
+  position: absolute;
+  top: -24px;
+  left: var(--left);
+  width: 9px;
+  height: 15px;
+  background: var(--color);
+  border-radius: 2px;
+  opacity: 0;
+  animation: confetti-fall var(--duration) linear
+    var(--delay) forwards;
+}
+
+@keyframes confetti-fall {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, -20px, 0) rotate(0deg);
+  }
+
+  85% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      translate3d(var(--drift), 110vh, 0)
+      rotate(var(--rotation));
+  }
+}
+
+/* Confirmation entrance */
+.confirmation-pop {
+  animation: confirmation-pop 350ms ease-out;
+}
+
+@keyframes confirmation-pop {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Respect the user's motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .confetti-piece,
+  .confirmation-pop {
+    animation: none !important;
+  }
+}

@@ -69,18 +69,17 @@
         </button>
       </section>
 
-      <section
-        class="result"
-        id="confirmed-screen"
-        aria-live="polite"
-        hidden
-      >
+      <section id="confirmed-screen" aria-live="polite" hidden>
+        <p class="eyebrow">GREAT CHOICE!</p>
+
         <h2 class="result-name">
           You're going to <span id="confirmed-name"></span>.
         </h2>
-        <p>Enjoy your meal!</p>
+
+        <p class="enjoy">Decision made. Enjoy your meal!</p>
+
         <button
-          class="button primary"
+          class="button button-primary primary"
           id="confirmed-reset-button"
           type="button"
         >
@@ -93,5 +92,6 @@
         requirements are not checked.
       </p>
     </main>
+    <div id="confetti-container" aria-hidden="true"></div>
   </body>
 </html>

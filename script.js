@@ -21,11 +21,15 @@ const confirmedResetButton = document.querySelector(
   "#confirmed-reset-button"
 );
 const soundButton = document.querySelector("#sound-button");
+const confettiContainer = document.querySelector(
+  "#confetti-container"
+);
 
 const reducedMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)"
 );
 
+let confettiTimer = null;
 let selected = null;
 let isPicking = false;
 let soundEnabled = false;
@@ -178,6 +182,8 @@ function startAgain() {
     return;
   }
 
+  clearConfetti();
+
   selected = null;
   suggestionName.textContent = "";
   confirmedName.textContent = "";
@@ -189,6 +195,73 @@ function startAgain() {
 
   showScreen(startScreen);
   pickButton.focus();
+}
+
+function clearConfetti() {
+  window.clearTimeout(confettiTimer);
+  confettiContainer.replaceChildren();
+  confirmedScreen.classList.remove("confirmation-pop");
+}
+
+function celebrate() {
+  clearConfetti();
+
+  if (reducedMotion.matches) {
+    return;
+  }
+
+  void confirmedScreen.offsetWidth;
+  confirmedScreen.classList.add("confirmation-pop");
+
+  const colors = [
+    "#e9b44c",
+    "#df705e",
+    "#527d63",
+    "#729fc4",
+    "#b187bd",
+  ];
+
+  const pieces = document.createDocumentFragment();
+
+  for (let i = 0; i < 45; i += 1) {
+    const piece = document.createElement("span");
+    piece.className = "confetti-piece";
+
+    piece.style.setProperty(
+      "--left",
+      `${Math.random() * 100}%`
+    );
+
+    piece.style.setProperty(
+      "--color",
+      colors[Math.floor(Math.random() * colors.length)]
+    );
+
+    piece.style.setProperty(
+      "--duration",
+      `${1.5 + Math.random() * 0.7}s`
+    );
+
+    piece.style.setProperty(
+      "--delay",
+      `${Math.random() * 0.25}s`
+    );
+
+    piece.style.setProperty(
+      "--drift",
+      `${(Math.random() - 0.5) * 180}px`
+    );
+
+    piece.style.setProperty(
+      "--rotation",
+      `${(Math.random() - 0.5) * 1080}deg`
+    );
+
+    pieces.appendChild(piece);
+  }
+
+  confettiContainer.appendChild(pieces);
+  confettiTimer = window.setTimeout(clearConfetti, 2600);
 }
 
 soundButton.addEventListener("click", async () => {
@@ -225,6 +298,8 @@ acceptButton.addEventListener("click", () => {
 
   confirmedName.textContent = selected;
   showScreen(confirmedScreen);
+
+  celebrate();
 
   playTone(660);
   playTone(880, 0.13);

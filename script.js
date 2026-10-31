@@ -5,7 +5,15 @@ const CANTEENS = [
   "The Forest",
 ];
 
+const LUNCHBOX_STYLES = [
+  { name: "Sakura", className: "sakura" },
+  { name: "Matcha", className: "matcha" },
+  { name: "Sunshine", className: "sunshine" },
+  { name: "Ocean", className: "ocean" },
+];
+
 const startScreen = document.querySelector("#start-screen");
+const gameScreen = document.querySelector("#game-screen");
 const suggestionScreen = document.querySelector("#suggestion-screen");
 const confirmedScreen = document.querySelector("#confirmed-screen");
 
@@ -24,6 +32,10 @@ const soundButton = document.querySelector("#sound-button");
 const confettiContainer = document.querySelector(
   "#confetti-container"
 );
+const mysteryCards = document.querySelector("#mystery-cards");
+const gameStatus = document.querySelector("#game-status");
+const drawCount = document.querySelector("#draw-count");
+const gameBackButton = document.querySelector("#game-back-button");
 
 const reducedMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)"
@@ -34,30 +46,32 @@ let selected = null;
 let isPicking = false;
 let soundEnabled = false;
 let audioContext = null;
+let drawNumber = 0;
+let revealTimer = null;
 
 function showScreen(screen) {
-  startScreen.hidden = screen !== startScreen;
-  suggestionScreen.hidden = screen !== suggestionScreen;
-  confirmedScreen.hidden = screen !== confirmedScreen;
-}
-
-function pickCanteen(previous = null) {
-  const options = CANTEENS.filter(
-    (canteen) => canteen !== previous
+  [startScreen, gameScreen, suggestionScreen, confirmedScreen].forEach(
+    (item) => {
+      item.hidden = item !== screen;
+    }
   );
-
-  return options[Math.floor(Math.random() * options.length)];
 }
 
-function setPickingState(value) {
-  isPicking = value;
+function shuffle(items) {
+  const result = [...items];
 
-  pickButton.disabled = value;
-  anotherButton.disabled = value;
-  acceptButton.disabled = value;
-  resetButton.disabled = value;
+  for (let i = result.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
 
-  suggestionScreen.setAttribute("aria-busy", String(value));
+  return result;
+}
+
+function clearConfetti() {
+  window.clearTimeout(confettiTimer);
+  confettiContainer.replaceChildren();
+  confirmedScreen.classList.remove("confirmation-pop");
 }
 
 async function prepareAudio() {
@@ -122,87 +136,6 @@ function playTone(frequency, delay = 0) {
   }
 }
 
-function revealResult(finalChoice) {
-  selected = finalChoice;
-  suggestionName.textContent = selected;
-  suggestionName.classList.remove("is-picking");
-
-  suggestionName.classList.remove("result-reveal");
-  void suggestionName.offsetWidth;
-  suggestionName.classList.add("result-reveal");
-
-  selectionStatus.textContent =
-    "Accept this suggestion or try another.";
-
-  setPickingState(false);
-  playTone(660);
-  acceptButton.focus();
-}
-
-function startPicking() {
-  if (isPicking) {
-    return;
-  }
-
-  if (soundEnabled) {
-    void prepareAudio();
-  }
-
-  const finalChoice = pickCanteen(selected);
-
-  showScreen(suggestionScreen);
-  setPickingState(true);
-  selectionStatus.textContent = "Picking your next stop...";
-
-  if (reducedMotion.matches) {
-    revealResult(finalChoice);
-    return;
-  }
-
-  suggestionName.classList.remove("result-reveal");
-  suggestionName.classList.add("is-picking");
-
-  let changes = 0;
-  let preview = selected;
-
-  const timer = window.setInterval(() => {
-    preview = pickCanteen(preview);
-    suggestionName.textContent = preview;
-    changes += 1;
-
-    if (changes >= 7) {
-      window.clearInterval(timer);
-      revealResult(finalChoice);
-    }
-  }, 100);
-}
-
-function startAgain() {
-  if (isPicking) {
-    return;
-  }
-
-  clearConfetti();
-
-  selected = null;
-  suggestionName.textContent = "";
-  confirmedName.textContent = "";
-
-  suggestionName.classList.remove(
-    "is-picking",
-    "result-reveal"
-  );
-
-  showScreen(startScreen);
-  pickButton.focus();
-}
-
-function clearConfetti() {
-  window.clearTimeout(confettiTimer);
-  confettiContainer.replaceChildren();
-  confirmedScreen.classList.remove("confirmation-pop");
-}
-
 function celebrate() {
   clearConfetti();
 
@@ -264,6 +197,141 @@ function celebrate() {
   confettiTimer = window.setTimeout(clearConfetti, 2600);
 }
 
+function openMysteryRound() {
+  if (isPicking) {
+    return;
+  }
+
+  clearConfetti();
+  drawNumber += 1;
+
+  const options = shuffle(
+    CANTEENS.filter((canteen) => canteen !== selected)
+  );
+
+  drawCount.textContent = `DRAW ${drawNumber}`;
+  gameStatus.textContent =
+    "Choose a lunchbox to reveal your lunch stop.";
+
+  mysteryCards.replaceChildren();
+
+  options.forEach((canteen, index) => {
+    const style = LUNCHBOX_STYLES[index];
+
+    const card = document.createElement("button");
+    card.type = "button";
+    card.className = `mystery-card lunchbox-card ${style.className}`;
+    card.setAttribute(
+      "aria-label",
+      `Open the ${style.name} mystery lunchbox`
+    );
+
+    const illustration = document.createElement("span");
+    illustration.className = "lunchbox-art";
+    illustration.setAttribute("aria-hidden", "true");
+    illustration.innerHTML = `
+      <span class="lunchbox-lid">
+        <span class="lid-sticker">?</span>
+      </span>
+
+      <span class="lunchbox-tray">
+        <span class="rice-section">
+          <span class="rice-topping"></span>
+        </span>
+
+        <span class="side-section">
+          <span class="veggie"></span>
+          <span class="veggie"></span>
+          <span class="veggie"></span>
+        </span>
+
+        <span class="snack-section">
+          <span class="snack"></span>
+          <span class="snack"></span>
+        </span>
+      </span>
+    `;
+
+    const label = document.createElement("span");
+    label.className = "lunchbox-name";
+    label.textContent = `${style.name} Box`;
+
+    const hint = document.createElement("span");
+    hint.className = "lunchbox-hint";
+    hint.textContent = "Tap to discover";
+
+    card.append(illustration, label, hint);
+
+    card.addEventListener("click", () => {
+      revealCard(card, canteen);
+    });
+
+    mysteryCards.appendChild(card);
+  });
+
+  showScreen(gameScreen);
+  mysteryCards.querySelector("button").focus();
+}
+
+function revealCard(card, canteen) {
+  if (isPicking) {
+    return;
+  }
+
+  isPicking = true;
+
+  if (soundEnabled) {
+    void prepareAudio();
+  }
+
+  mysteryCards.querySelectorAll("button").forEach((button) => {
+    button.disabled = true;
+  });
+
+  card.classList.add("chosen");
+  card.querySelector(".lunchbox-name").textContent = canteen;
+  card.querySelector(".lunchbox-hint").textContent =
+    "Lunch stop revealed!";
+  card.setAttribute("aria-label", `Revealed: ${canteen}`);
+  gameStatus.textContent = `You revealed ${canteen}!`;
+
+  playTone(660);
+
+  const finishReveal = () => {
+    selected = canteen;
+    suggestionName.textContent = selected;
+    selectionStatus.textContent =
+      `Draw ${drawNumber}: accept your discovery or open another card.`;
+
+    isPicking = false;
+    showScreen(suggestionScreen);
+    acceptButton.focus();
+  };
+
+  revealTimer = window.setTimeout(
+    finishReveal,
+    reducedMotion.matches ? 0 : 900
+  );
+}
+
+function startAgain() {
+  window.clearTimeout(revealTimer);
+  clearConfetti();
+
+  isPicking = false;
+  selected = null;
+  drawNumber = 0;
+
+  mysteryCards.replaceChildren();
+  suggestionName.textContent = "";
+  confirmedName.textContent = "";
+  selectionStatus.textContent =
+    "Accept this suggestion or try another.";
+
+  showScreen(startScreen);
+  pickButton.focus();
+}
+
 soundButton.addEventListener("click", async () => {
   if (soundEnabled) {
     soundEnabled = false;
@@ -288,8 +356,8 @@ soundButton.addEventListener("click", async () => {
   }
 });
 
-pickButton.addEventListener("click", startPicking);
-anotherButton.addEventListener("click", startPicking);
+pickButton.addEventListener("click", openMysteryRound);
+anotherButton.addEventListener("click", openMysteryRound);
 
 acceptButton.addEventListener("click", () => {
   if (isPicking || selected === null) {
@@ -307,5 +375,6 @@ acceptButton.addEventListener("click", () => {
   confirmedResetButton.focus();
 });
 
+gameBackButton.addEventListener("click", startAgain);
 resetButton.addEventListener("click", startAgain);
 confirmedResetButton.addEventListener("click", startAgain);

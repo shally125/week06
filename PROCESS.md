@@ -84,3 +84,39 @@ animation when the user's system requests reduced motion.
 I reviewed the changes in the browser and tested selection, another
 suggestion, confirmation, reset, sound on and off, rapid clicks during
 selection, and the reduced-motion behavior.
+
+## Developing the Game Interaction
+
+Following feedback that the experience was fun but could include
+more sound and motion, I extended the picker with a mystery-card
+interaction.
+
+Users now choose a hidden card before discovering a canteen.
+This adds an action and a moment of anticipation to the original
+random-selection loop.
+
+I kept confirmation and reset controls clear so the playful
+presentation would still support a quick lunch decision.
+
+The first round contains four different canteens. Later rounds
+exclude the previous suggestion and contain three cards.
+I avoided adding duplicate options just to fill four positions.
+
+The draw counter provides feedback without imposing a score,
+penalty, or limit. Confetti marks confirmation of a decision.
+
+ChatGPT/Codex assisted with the interaction proposal and code.
+
+## Lunchbox Visual Design
+
+I replaced the plain mystery cards with four illustrated lunchboxes:
+Sakura, Matcha, Sunshine, and Ocean.
+
+Each lunchbox has a different colour theme and small decorative
+food details. Selecting a box opens its lid and reveals the canteen.
+
+The illustrations are made with HTML and CSS, without external images.
+The food decorations do not represent actual menus.
+
+Canteens are shuffled each round. Lunchbox colours do not indicate
+a fixed canteen or a recommendation based on food preferences.

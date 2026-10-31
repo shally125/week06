@@ -82,26 +82,32 @@ button:focus-visible {
   outline-offset: 4px;
 }
 
-.primary {
+.button-primary {
   background: #294f3e;
   color: white;
 }
 
-.primary:hover {
+.button-primary:hover {
   background: #1d3d2e;
 }
 
-#pick-button {
-  width: 100%;
-}
-
-.secondary {
+.button-secondary {
   background: #e9eddf;
   color: #243a31;
 }
 
-.secondary:hover {
+.button-secondary:hover {
   background: #dce3cd;
+}
+
+.button-text {
+  background: transparent;
+  color: #375340;
+  text-decoration: underline;
+}
+
+#pick-button {
+  width: 100%;
 }
 
 .result {
@@ -270,6 +276,294 @@ button:focus-visible {
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+/* Four lunchbox colour themes */
+.lunchbox-card.sakura {
+  --box-color: #ce788b;
+  --box-dark: #995267;
+  --box-light: #f4d5dc;
+}
+
+.lunchbox-card.matcha {
+  --box-color: #7e9b6b;
+  --box-dark: #536d44;
+  --box-light: #e0e9d5;
+}
+
+.lunchbox-card.sunshine {
+  --box-color: #d9aa48;
+  --box-dark: #97752c;
+  --box-light: #f7ebc9;
+}
+
+.lunchbox-card.ocean {
+  --box-color: #729bb5;
+  --box-dark: #476d87;
+  --box-light: #dcebf3;
+}
+
+.mystery-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 24px 0;
+}
+
+.mystery-card {
+  min-height: 140px;
+  padding: 18px 10px;
+  border: 2px solid #d6bd87;
+  border-radius: 14px;
+  background: #183b32;
+  color: #fffdf8;
+  font: inherit;
+  cursor: pointer;
+  transition: transform 180ms ease, background 180ms ease;
+}
+
+.mystery-card:hover:not(:disabled) {
+  transform: translateY(-6px);
+  background: #285447;
+}
+
+.mystery-card:focus-visible {
+  outline: 3px solid #c47b50;
+  outline-offset: 4px;
+}
+
+.mystery-card:disabled {
+  cursor: default;
+}
+
+.mystery-card.lunchbox-card {
+  min-height: 210px;
+  padding: 20px 10px 16px;
+  border: 1px solid #deded1;
+  border-radius: 18px;
+  background: #faf7ef;
+  color: #183b32;
+}
+
+.mystery-card.lunchbox-card:hover:not(:disabled) {
+  background: var(--box-light);
+  transform: translateY(-5px);
+}
+
+.lunchbox-art {
+  position: relative;
+  display: block;
+  width: 138px;
+  height: 104px;
+  margin: 10px auto 18px;
+}
+
+.lunchbox-tray {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 5px;
+  padding: 8px;
+  background: var(--box-color);
+  border: 3px solid var(--box-dark);
+  border-radius: 20px;
+  box-shadow: 0 6px 0 var(--box-dark);
+}
+
+.rice-section {
+  grid-row: 1 / 3;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background:
+    repeating-linear-gradient(
+      25deg,
+      #fffdf7 0 5px,
+      #eee9dc 5px 6px,
+      #fffdf7 6px 10px
+    );
+}
+
+.rice-topping {
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: #c96957;
+}
+
+.side-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border-radius: 9px;
+  background: #eee8cc;
+}
+
+.veggie {
+  width: 15px;
+  height: 20px;
+  border-radius: 50% 50% 35% 35%;
+  background: #6b9259;
+  transform: rotate(-15deg);
+}
+
+.veggie:nth-child(2) {
+  height: 25px;
+  background: #477445;
+  transform: rotate(12deg);
+}
+
+.snack-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: 9px;
+  background: #f2dcc0;
+}
+
+.snack {
+  width: 18px;
+  height: 23px;
+  border-radius: 7px;
+  background: #e3a34c;
+  transform: rotate(-12deg);
+}
+
+.snack:nth-child(2) {
+  transform: rotate(12deg);
+}
+
+.sakura .rice-topping {
+  border-radius: 4px;
+  transform: rotate(45deg);
+}
+
+.matcha .rice-topping {
+  background: #344d36;
+  border-radius: 3px;
+}
+
+.sunshine .rice-topping {
+  background: #e9b63c;
+  border: 4px solid white;
+  width: 28px;
+  height: 28px;
+}
+
+.ocean .snack {
+  background: #d77e67;
+}
+
+.lunchbox-lid {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  border: 3px solid var(--box-dark);
+  border-radius: 20px;
+  background: var(--box-color);
+  box-shadow:
+    inset 0 0 0 5px var(--box-color),
+    inset 0 0 0 7px rgb(255 255 255 / 30%),
+    0 6px 0 var(--box-dark);
+  transform-origin: top center;
+  transition: transform 400ms ease, opacity 400ms ease;
+}
+
+.lid-sticker {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--box-light);
+  color: var(--box-dark);
+  font-family: Georgia, serif;
+  font-size: 27px;
+  font-weight: bold;
+}
+
+.lunchbox-name {
+  display: block;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.lunchbox-hint {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.75rem;
+  color: #5f6d63;
+}
+
+.mystery-card.lunchbox-card.chosen {
+  background: var(--box-light);
+  border-color: var(--box-dark);
+}
+
+.chosen .lunchbox-lid {
+  transform: translateY(-30px) rotate(-12deg);
+  opacity: 0;
+}
+
+#game-status {
+  min-height: 3em;
+  color: #5f6d63;
+  line-height: 1.5;
+}
+
+.card-symbol {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 38px;
+  color: #f2d38c;
+}
+
+@keyframes card-reveal {
+  from {
+    transform: scale(0.94);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+.mystery-card.chosen {
+  background: #e9b44c;
+  color: #183b32;
+  animation: card-reveal 350ms ease-out;
+}
+
+@media (max-width: 380px) {
+  .lunchbox-art {
+    width: 108px;
+    height: 88px;
+  }
+
+  .mystery-card.lunchbox-card {
+    padding-inline: 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lunchbox-lid,
+  .mystery-card,
+  .mystery-card.chosen,
+  .confetti-piece,
+  .confirmation-pop {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .mystery-card:hover:not(:disabled) {
+    transform: none;
   }
 }
 

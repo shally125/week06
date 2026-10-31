@@ -30,18 +30,44 @@
       </button>
 
       <section id="start-screen" aria-labelledby="spots-heading">
-        <div class="spots">
-          <h2 id="spots-heading">OUR FOUR SPOTS</h2>
-          <ul>
-            <li>Tai Tai Foodtopia</li>
-            <li>Communal Student Canteen</li>
-            <li>Gourmet Shop</li>
-            <li>The Forest</li>
-          </ul>
-        </div>
+        <h2 id="spots-heading">YOUR LUNCH QUEST</h2>
 
-        <button class="button primary" id="pick-button" type="button">
-          Pick a canteen
+        <p class="spots">
+          Tai Tai Foodtopia · Communal Student Canteen<br>
+          Gourmet Shop · The Forest
+        </p>
+
+        <p>Open a mystery card. Discover your next lunch stop.</p>
+
+        <button
+          class="button button-primary"
+          id="pick-button"
+          type="button"
+        >
+          Start the quest
+        </button>
+      </section>
+
+      <section id="game-screen" hidden aria-labelledby="game-heading">
+        <p class="eyebrow" id="draw-count">DRAW 1</p>
+        <h2 id="game-heading">Pick your lunchbox</h2>
+        <p>
+          Each box hides a different canteen.
+          The colours are just for fun!
+        </p>
+
+        <div id="mystery-cards" class="mystery-cards"></div>
+
+        <p id="game-status" role="status">
+          Choose a lunchbox to reveal your lunch stop.
+        </p>
+
+        <button
+          class="button button-text"
+          id="game-back-button"
+          type="button"
+        >
+          Back to start
         </button>
       </section>
 
@@ -57,10 +83,10 @@
           Accept this suggestion or try another.
         </p>
         <div class="actions">
-          <button class="button primary" id="accept-button" type="button">
+          <button class="button button-primary" id="accept-button" type="button">
             I'll eat here
           </button>
-          <button class="button secondary" id="another-button" type="button">
+          <button class="button button-secondary" id="another-button" type="button">
             Pick another
           </button>
         </div>

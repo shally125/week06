@@ -50,6 +50,35 @@ be cleared immediately by selecting **Start again**.
 The animation is skipped when the system's reduced-motion
 preference is enabled.
 
+## Mystery Card Interaction
+
+Select **Start the quest** to reveal four mystery cards.
+Each card hides a different campus canteen.
+
+Choose a card to discover a suggestion. Accept it to celebrate
+your decision, or select **Pick another** to open a new round.
+
+Later rounds exclude the previous suggestion and show three cards.
+The draw counter tracks rounds in the current session.
+Starting again resets the counter.
+
+Card positions are shuffled each round. They do not represent
+canteen quality or suitability.
+
+## Lunchbox Visual Design
+
+I replaced the plain mystery cards with four illustrated lunchboxes:
+Sakura, Matcha, Sunshine, and Ocean.
+
+Each lunchbox has a different colour theme and small decorative
+food details. Selecting a box opens its lid and reveals the canteen.
+
+The illustrations are made with HTML and CSS, without external images.
+The food decorations do not represent actual menus.
+
+Canteens are shuffled each round. Lunchbox colours do not indicate
+a fixed canteen or a recommendation based on food preferences.
+
 ## Screenshot
 
 ![Where Should I Eat? page](assets/screenshot.png)
